@@ -1,0 +1,9 @@
+img {
+    margin: auto;
+    display: block;
+}
+
+div.sign-up {
+    background-color: azure;
+    opacity: 10%;
+}

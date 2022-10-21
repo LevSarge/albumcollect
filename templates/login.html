@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Welcome to Album Collector!</h1>
+<p>Please Sign In</p>
+<form action="/login" method="POST">
+    {{form.username.label}}{{form.username()}}
+    <br> {{form.password.label}}{{form.password()}}
+    <input type="submit" value="submit">
+</form>
+
+<footer>Image credit to <a href="https://unsplash.com/photos/XAqTc-LLm6A">Dane Deaner</a></footer>
+{% endblock %}
