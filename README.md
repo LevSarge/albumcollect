@@ -1,6 +1,8 @@
 # Album Collector
 For my second Capstone Project for DevMountain, I wanted to do something that involved a favorite hobby of mine: collecting and cataloging music. Using Apple's iTunes (now rebranded to Apple Music), and open source programs like Strawberry Music Player formed the concept behind this project. With all that I learned over the course of DevMountain's Python Specialization, my usage of Apple Music and Strawberry, and my understanding of Python, Flask, SQLAlchemy combined, Album Collector was formed! With Album Collector, you will be able to add your favorite albums (complete with other optional metadata and filtering tags), or delete them if you find albums you just don't like or lost over the years. Either way, build your collections and know what you have!
 
+YouTube Presentation: Coming Soon!
+
 ## MVP
 1. Users can register and login to their account
 2. Users can add and remove albums to their personal collection

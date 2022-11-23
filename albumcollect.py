@@ -68,13 +68,14 @@ def add_album(new_album):
     db.session.add(a)
     db.session.commit()
 
+def delete_album(album):
+    db.session.delete(album)
+    db.session.commit()
+
 """Website routing"""
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(id=user_id).first()
-
-#@app.route("/", methods = ["GET"])
-#@login_required
 
 @app.route('/login', methods = ["GET"])
 @login_required
