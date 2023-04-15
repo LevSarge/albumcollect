@@ -3,7 +3,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from jinja2 import StrictUndefined
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField 
+from wtforms import StringField, IntegerField, PasswordField, SubmitField 
 from wtforms.validators import DataRequired, Length, NumberRange
 from flask_login import LoginManager, login_user, login_required, current_user, UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    username = db.Column(db.String(25), nullable = False)
+    username = db.Column(db.String(25), nullable = False, unique = True),
     password = db.Column(db.String(25), nullable = False)
 
 class Album(db.Model):
@@ -49,11 +49,19 @@ class List(db.Model):
 
 #db.create_all()
 
-"""Flask forms for Data Entry"""
+#Flask forms for Data Entry
 
 class RegisterForm(FlaskForm):
     username = StringField(name = "Username", validators = [DataRequired(),Length(3,20)])
-    password = StringField(name = "Password", validators = [DataRequired(),Length(3,20)])
+    password = PasswordField(name = "Password", validators = [DataRequired(),Length(3,20)])
+
+    submit = SubmitField("Register")
+
+    def validate_user(self, username):
+        existing_username = User.query.filter_by(username=username.data).first()
+        if existing_username:
+            raise ValueError("Username already taken. Please pick a different one.")
+
 
 class AlbumForm(FlaskForm):
     title = StringField(name = "Album Title", validators = [DataRequired(), Length(1, 100)])
@@ -62,6 +70,13 @@ class AlbumForm(FlaskForm):
     release_date = StringField(name = "Year", validators= [DataRequired(), Length(1,4)])
     album_format = StringField(name = "Release Format", validators= [DataRequired(), Length(1, 50)])
     album_rating = IntegerField(name = "Rating", validators= [DataRequired(), NumberRange(min = 1, max =5)])
+
+#User functions with login manager
+
+
+#Album functions (Add, Delete and Get)
+def get_albums():
+    a = Album()
 
 def add_album(new_album):
     a = Album(album = new_album, user_id = current_user.user_id)
@@ -72,31 +87,26 @@ def delete_album(album):
     db.session.delete(album)
     db.session.commit()
 
-"""Website routing"""
+#Website routing
+@app.route('/')
+def landing():
+    return render_template('landing.html')
+
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.filter_by(id=user_id).first()
+    return User.query.get(id=user_id).first()
 
-@app.route('/login', methods = ["GET"])
+@app.route('/login', methods = ["GET", "POST"])
 @login_required
 def login():
     form = RegisterForm()
     return render_template("login.html", form = form)
 
-@app.route('/signup', methods=['GET'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup_page():
-    form = RegisterForm()
-    return render_template("signup.html", form=form)
+    submit = RegisterForm()
 
-@app.route('/signup', methods=['POST'])
-def process_signup():
-    username = request.form["Username"]
-    password = request.form["Password"]
-    if User.query.filter_by(username = username).first() == None:
-        u = User(username = username, password = password)
-        db.session.add(u)
-        db.session.commit()
-        login_user(u)
-        return redirect(url_for("login.html"))
+    return render_template("signup.html", form=submit)
+        
 
-app.run(port=5000, host="localhost")
+app.run(port=5000, host="localhost", debug=True)
