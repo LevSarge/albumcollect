@@ -1,10 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 <div class="sign-up">
     <h3>Create an account with us!</h3>
-    <form action="/signup" method="POST" class="sign-up">
-        Create username: {{form.username}}
-        <br> Create password: {{form.password}} <br> {{form.submit}}
+    <form method="POST" action="{{ url_for('signup')}}">
+        Create username: {{form.username()}}
+        <br> Create password: {{form.password()}} <br> {{form.submit()}}
     </form>
-
 </div>
 {% endblock %}

@@ -7,17 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Album Collect</title>
     <meta name="description" content="Album Collect is a website dedicated to the music collectors out there that want to catalog their music collections, but it's all made with Flask">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='site.css' ) }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
-    <nav>
-        <li>Register</li>
-        <li>Sign Out</li>
-    </nav>
+
     {% block content %} Insert content here! {% endblock %}
     <footer>
-        Image credit to <a href="https://unsplash.com/photos/XAqTc-LLm6A">Dane Deaner</a> from Unsplash <br> Updated November 22,2022 | Github: <a href="https://github.com/LevSarge/albumcollect">Here</a>
+        Image credit to <a href="https://unsplash.com/photos/XAqTc-LLm6A">Dane Deaner</a>
     </footer>
 </body>
 

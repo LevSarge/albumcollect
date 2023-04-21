@@ -1,0 +1,56 @@
+body {
+    background-color: maroon;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+div.landing {
+    position: relative;
+}
+
+div.landing-options {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: beige;
+    border-radius: 5%;
+    padding: 20px;
+}
+
+div.login {
+    position: relative;
+}
+
+
+/* div.landing {
+    background-color: silver;
+    opacity: 10%;
+} */
+
+
+/* div.landing a {
+    text-decoration: none;
+} */
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

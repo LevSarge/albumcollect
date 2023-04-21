@@ -1,21 +1,8 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Welcome to Album Collector!</h1>
+<h1>Welcome to Album Collect!</h1>
 <p>Please Sign In</p>
-<form action="/login" method="POST">
-    <div>
-        <label>Email:
-                <input type="email" name="email" required>
-            </label>
-    </div>
-
-    <div>
-        <label>Password:
-                <input type="password" name="password" required>
-            </label>
-    </div>
-
-    <div>
-        <input type="submit" value="Log In">
-    </div>
+<form method="POST" action="{{ url_for('login')}}">
+    Username:{{form.username}}<br> Password:{{form.password}}
+    <br> {{form.submit}}
 </form>
 {% endblock %}

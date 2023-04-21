@@ -1,4 +1,29 @@
-{% extends 'base.html'%} {% block content %}
-<div>
-    <p>Henlo</p>
-</div>{% endblock %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Album Collect</title>
+    <meta name="description" content="Album Collect is a website dedicated to the music collectors out there that want to catalog their music collections, but it's all made with Flask">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+    <div class="landing">
+        <img src="/static/img/landing_bg.jpg">
+
+        <div class="landing-options">
+            <h1>Album Collect</h1>
+            <h3>Your music collection awaits!</h3>
+
+            <p>New here? <a href="{{ url_for('signup')}}">Sign Up</a></p>
+            <p>Returning user? <a href="{{url_for('login')}}">Sign In</a></p>
+        </div>
+
+        <footer>Image credit to <a href="https://unsplash.com/photos/g_azYqqc-G8"> Nihal Demirci Erenay </a> from Unsplash</footer>
+    </div>
+</body>
+
+</html>
