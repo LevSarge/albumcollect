@@ -1,6 +1,6 @@
 """Flask server for Album Collect"""
 
-from flask import Flask, render_template, redirect, url_for, request, flash, session
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField, SubmitField, SelectField, TextAreaField 
 from wtforms.validators import DataRequired, Length, NumberRange
@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    username = db.Column(db.String(25), nullable = False),
+    username = db.Column(db.String(25), nullable = False)
     password = db.Column(db.String(25), nullable = False)
 
 class Album(db.Model):
@@ -47,18 +47,19 @@ class List(db.Model):
     album_id = db.Column(db.Integer, db.ForeignKey(Album.album_id))
     album_rating = db.Column(db.Integer, db.ForeignKey(Album.album_rating))
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 #Flask forms for Data Entry
 
 class LoginForm(FlaskForm):
-    username = StringField(name = "Username", validators = [DataRequired(),Length(3,20)])
+    username = StringField(name = "Username", validators = [DataRequired()])
     password = PasswordField(name = "Password", validators = [DataRequired(),Length(3,20)])
     submit = SubmitField("Login")
 
 class RegisterForm(FlaskForm):
-    username = StringField(name = "Username", validators = [DataRequired()])
-    password = PasswordField(name = "Password", validators = [DataRequired()])
+    username = StringField("Username", validators = [DataRequired()])
+    password = PasswordField("Password", validators = [DataRequired()])
     submit = SubmitField("Register")
 
 
@@ -99,9 +100,11 @@ def delete_album(album):
 def landing():
     return render_template('landing.html')
 
-@app.route('/login', methods = ["GET"])
+#Logging users in/out
+@app.route('/login', methods = ["GET", "POST"])
 def login():
     form = LoginForm()
+    
     return render_template("login.html", form = form)
 
 @app.route('/login', methods = ["POST"])
@@ -119,18 +122,22 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/signup', methods=['GET', 'POST'])
+#Registering users routes
+@app.route('/signup', methods=['GET'])
 def signup():
+    form = RegisterForm()
+    return render_template("signup.html", form=form)
+
+@app.route('/signup', methods=['POST'])
+def register_user():
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, password=form.password.data)
-        #Add user and password to User database
         db.session.add(user)
         db.session.commit()
-
-        flash('User registered! Go login.')
         return redirect(url_for('login'))
-
     return render_template("signup.html", form=form)
 
+# @app.route('/', methods=['GET'])    
+    
 app.run(port=5000, host="localhost", debug=True)

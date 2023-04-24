@@ -2,3 +2,4 @@ cap/
 *.pyc
 _build
 *.db
+instance

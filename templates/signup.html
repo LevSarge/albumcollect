@@ -3,7 +3,7 @@
     <h3>Create an account with us!</h3>
     <form method="POST" action="{{ url_for('signup')}}">
         Create username: {{form.username()}}
-        <br> Create password: {{form.password()}} <br> {{form.submit()}}
+        <br> Create password: {{form.password()}} <br> {{form.submit()}} {{ form.csrf_token }}
     </form>
 </div>
 {% endblock %}
