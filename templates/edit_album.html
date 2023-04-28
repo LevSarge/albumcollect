@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+<form method="post" action="{{ url_for('add_album')}}">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.title.label }} {{ form.title(size=50, class="form-control") }} {% for error in form.title.errors %}
+        <span class="text-danger">{{ error }}</span> {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.artist.label }} {{ form.artist(size=50, class="form-control") }} {% for error in form.artist.errors %}
+        <span class="text-danger">{{ error }}</span> {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.genre.label }} {{ form.genre(size=50, class="form-control") }} {% for error in form.genre.errors %}
+        <span class="text-danger">{{ error }}</span> {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.release_date.label }} {{ form.release_date(class="form-control") }} {% for error in form.release_date.errors %}
+        <span class="text-danger">{{ error }}</span> {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.album_format.label }} {{ form.album_format(class="form-control") }} {% for error in form.album_format.errors %}
+        <span class="text-danger">{{ error }}</span> {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.album_rating.label }} {{ form.album_rating(class="form-control") }} {% for error in form.album_rating.errors %}
+        <span class="text-danger">{{ error }}</span> {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.album_tag.label }} {{ form.album_tag(rows=5, class="form-control") }} {% for error in form.album_tag.errors %}
+        <span class="text-danger">{{ error }}</span> {% endfor %}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+</form>{% endblock %}

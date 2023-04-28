@@ -1,7 +1,15 @@
 {% extends 'base.html'%} {% block content %}
 <!--This needs to be able to display an album's information that the user put in when they added it to their list -->
-<h3>Album Information</h3>
-<ul>
-    {% for album in %}
-</ul>
+<h3>Album Information for {{ album.title }}</h3>
+<p>Artist: {{ album.artist }}</p>
+<p>Genre: {{ album.genre }}</p>
+<p>Release Year: {{ album.release_date }}</p>
+<p>Album Format: {{ album.album_format }}</p>
+<p>Album Rating: {{ album.album_rating }}</p>
+<p>Album Tags: {{ album.album_tag }}</p>
+<hr>
+<a href="{{ url_for('edit_album', album_id=album.id) }}">Edit Album</a>
+<form action="{{ url_for('delete_album', album_id=album.id) }}" method="POST">
+    <button type="submit">Delete Album</button>
+</form>
 {% endblock %}

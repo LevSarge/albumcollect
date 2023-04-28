@@ -1,10 +1,28 @@
 {% extends 'base.html'%} {% block content %}
-<!--Needs to display album names, artist, and tags-->
+<!--Needs to display album names, artist, and tags if available-->
+<nav>
+    <ul>
+        <li><a href="{{ url_for('add_album') }}">Add Album</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+</nav>
+
+<h3> {{ user.username }}'s List</h3>
+<br> {% if albums %}
 <table>
     <tr>
-        <th>Album</th>
-        <th>Artist</th>
-        <th>Tag(s)</th>
+        <th>Album and Artist</th>
+        <th>Rating</th>
+        <th>Tags</th>
     </tr>
+    {% for album in albums %}
+    <tr>
+        <td><a href="{{ url_for('album', album_id=album.id) }}">{{ album.title }} - {{ album.artist }}</a></td>
+        <td>{{ album.rating }}</td>
+        <td>{{ album.album_tag }}</td>
+    </tr>
+    {% endfor %}
 </table>
-{% endblock %}
+{% else %}
+<p>Is there anybody out there?</p>
+{% endif%} {% endblock %}
